@@ -240,7 +240,7 @@ class HTTPDigestAuth(AuthBase):
 
         if not qop:
             respdig = KD(HA1, f"{nonce}:{HA2}")
-        elif qop == "auth" or "auth" in qop.split(","):
+        elif qop == "auth" or "auth" in (x.strip() for x in qop.split(",")):
             noncebit = f"{nonce}:{ncvalue}:{cnonce}:auth:{HA2}"
             respdig = KD(HA1, noncebit)
         else:
